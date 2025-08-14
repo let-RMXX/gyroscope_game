@@ -4,7 +4,9 @@ const gameOver = document.getElementById('gameOver');
 const restartBtn = document.getElementById('restartBtn');
 const permissionScreen = document.getElementById('permissionScreen');
 const permissionBtn = document.getElementById('permissionBtn');
-const gameOverSound = new Audio('/Assets/Sound/epic.mp3')
+const gameOverSound = new Audio('/Assets/Sound/biohazard.mp3');
+const gameStart = document.getElementById('gameStart');
+const countdownTxt = document.getElementById('countdownTxt');
 
 function setCanvasDimensions() {
   canvas.width = window.innerWidth;
@@ -22,6 +24,23 @@ let ball = {
 };
 
 let isGameOver = false;
+
+function startCountdown() {
+  let timeLeft = 3;
+  gameStart.classList.remove('hidden');
+  countdownTxt.textContent = timeLeft;
+
+  const countdownInterval = setInterval(() => {
+      timeLeft--;
+      if(timeLeft > 0){
+        countdownTxt.textContent = timeLeft;
+      } else {
+        clearInterval(countdownInterval);
+        gameStart.classList.add('hidden');
+        gameLoop();
+      }
+    }, 1000);
+}
 
 if (typeof DeviceOrientationEvent.requestPermission === 'function') {
   permissionBtn.addEventListener('click', () => {
@@ -48,7 +67,7 @@ function handleOrientation() {
 
   const tiltY =  event.beta;
 
-  const sensitivity = 1.5;
+  const sensitivity = 1;
 
   ball.speedX = tiltX * sensitivity;
   ball.speedY = tiltY * sensitivity;
@@ -102,6 +121,11 @@ function render() {
 restartBtn.addEventListener('click', () => {
   isGameOver = false;
   gameOver.classList.add('hidden');
+
+  // Stop sound on restart
+  gameOverSound.pause();
+  gameOverSound.currentTime = 0;
+
   //Reset Ball Pos and speed
   ball.x = canvas.width / 2;
   ball.y = canvas.height / 2;
