@@ -7,7 +7,7 @@ const permissionBtn = document.getElementById('permissionBtn');
 
 function setCanvasDimensions() {
   canvas.width = window.innerWidth;
-  canvas.height = windows.innerHeight;
+  canvas.height = window.innerHeight;
 }
 setCanvasDimensions();
 
