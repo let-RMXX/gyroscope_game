@@ -43,9 +43,9 @@ if (typeof DeviceOrientationEvent.requestPermission === 'function') {
 }
 
 function handleOrientation() {
-  const tiltX = addEventListener.gamma;
+  const tiltX = event.gamma;
 
-  const tiltY =  addEventListener.beta;
+  const tiltY =  event.beta;
 
   const sensitivity = 5;
 
