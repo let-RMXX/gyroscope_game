@@ -132,7 +132,7 @@ if (typeof DeviceOrientationEvent.requestPermission === 'function') {
         .then(permissionState => {
           if (permissionState === 'granted') {
             permissionScreen.style.display = 'none';
-            window.addEventListener('deviceorientation', handleOrientation);
+            //window.addEventListener('deviceorientation', handleOrientation);
             startGame();
           } else {
               alert('Permission to use gyroscope denied.');
@@ -142,7 +142,7 @@ if (typeof DeviceOrientationEvent.requestPermission === 'function') {
   });
 } else {
   permissionScreen.style.display = 'none';
-  window.addEventListener('deviceorientation', handleOrientation);
+  //window.addEventListener('deviceorientation', handleOrientation);
   startGame();
 }
 
