@@ -47,7 +47,7 @@ function handleOrientation() {
 
   const tiltY =  event.beta;
 
-  const sensitivity = 0.5;
+  const sensitivity = 0.2;
 
   ball.speedX = tiltX * sensitivity;
   ball.speedY = tiltY * sensitivity;
@@ -129,7 +129,7 @@ if (typeof DeviceOrientationEvent.requestPermission === 'function') {
           if (permissionState === 'granted') {
             permissionScreen.style.display = 'none';
             window.addEventListener('deviceorientation', handleOrientation);
-            gameLoop();
+            startGame();
           } else {
               alert('Permission to use gyroscope denied.');
           }
