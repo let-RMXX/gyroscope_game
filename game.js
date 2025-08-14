@@ -62,7 +62,7 @@ function gameLoop() {
 
   render();
 
-  requestAnimationFrame();
+  window.requestAnimationFrame(gameLoop);
 }
 
 function update() {
