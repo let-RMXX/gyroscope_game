@@ -37,6 +37,8 @@ function startCountdown() {
       } else {
         clearInterval(countdownInterval);
         gameStart.classList.add('hidden');
+
+        window.addEventListener('deviceorientation', handleOrientation);
         gameLoop();
       }
     }, 1000);
@@ -47,7 +49,7 @@ function handleOrientation() {
 
   const tiltY =  event.beta;
 
-  const sensitivity = 0.2;
+  const sensitivity = 0.3;
 
   ball.speedX = tiltX * sensitivity;
   ball.speedY = tiltY * sensitivity;
@@ -82,6 +84,8 @@ function update() {
       if (!isGameOver) {
           isGameOver = true;
           gameOver.classList.remove('hidden');
+
+          window.removeEventListener('deviceorientation', handleOrientation);
 
           gameOverSound.play();
 
