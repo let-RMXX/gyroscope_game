@@ -1,4 +1,4 @@
-# Gyroscope Sphere Balance Game
+# Gyroscope Sphere Balance Game ANDROID / IOS
 
 Hello dear friends,
 
