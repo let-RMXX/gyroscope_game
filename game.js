@@ -4,6 +4,7 @@ const gameOver = document.getElementById('gameOver');
 const restartBtn = document.getElementById('restartBtn');
 const permissionScreen = document.getElementById('permissionScreen');
 const permissionBtn = document.getElementById('permissionBtn');
+const gameOverSound = new Audio('/Assets/Sound/epic.mp3')
 
 function setCanvasDimensions() {
   canvas.width = window.innerWidth;
@@ -65,6 +66,8 @@ function gameLoop() {
   window.requestAnimationFrame(gameLoop);
 }
 
+gameOverSound.loop = false;
+
 function update() {
   ball.x += ball.speedX;
   ball.y += ball.speedY;
@@ -72,8 +75,17 @@ function update() {
   if (ball.x - ball.radius < 0 || ball.x + ball.radius > canvas.width || 
     ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) {
 
-    isGameOver = true;
-    gameOver.classList.remove('hidden');
+      if (!isGameOver) {
+          isGameOver = true;
+          gameOver.classList.remove('hidden');
+
+          gameOverSound.play();
+
+          setTimeout(() => {
+            gameOverSound.pause();
+            gameOverSound.currentTime = 0;
+          }, 30000);
+      }
     }
 }
 
