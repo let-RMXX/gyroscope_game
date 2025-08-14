@@ -40,7 +40,7 @@ function handleOrientation() {
 
   const tiltY =  event.beta;
 
-  const sensitivity = 0.5;
+  const sensitivity = 5;
 
   ball.speedX = tiltX * sensitivity;
   ball.speedY = tiltY * sensitivity;
