@@ -5,7 +5,7 @@ body {
 }
 
 canvas {
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0);
   border-radius: 2rem;
 }
 
@@ -50,7 +50,7 @@ canvas {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  color: black;
+  color: white;
   font-family: sans-serif;
 }
 

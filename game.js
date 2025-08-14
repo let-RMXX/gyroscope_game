@@ -18,7 +18,7 @@ let ball = {
   x: canvas.width / 2,
   y: canvas.height / 2,
   radius: 20,
-  color: 'red',
+  color: 'white',
   speedX: 0,
   speedY: 0
 };
@@ -77,7 +77,8 @@ function gameLoop() {
   if (isGameOver){
     return;
   }
-
+  startCountdown();
+  
   update();
 
   render();
