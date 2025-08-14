@@ -5,6 +5,11 @@ const restartBtn = document.getElementById('restartBtn');
 const permissionScreen = document.getElementById('permissionScreen');
 const permissionBtn = document.getElementById('permissionBtn');
 
+function setCanvasDimensions() {
+  canvas.width = window.innerWidth;
+  canvas.height = windows.innerHeight;
+}
+setCanvasDimensions();
 
 let ball = {
   x: canvas.width / 2,
@@ -14,6 +19,8 @@ let ball = {
   speedX: 0,
   speedY: 0
 };
+
+let isGameOver = false;
 
 if (typeof DeviceOrientationEvent.requestPermission === 'function') {
   permissionBtn.addEventListener('click', () => {
@@ -45,8 +52,6 @@ function handleOrientation() {
   ball.speedX = tiltX * sensitivity;
   ball.speedY = tiltY * sensitivity;
 }
-
-let isGameOver = false;
 
 function gameLoop() {
   if (isGameOver){
@@ -88,8 +93,8 @@ restartBtn.addEventListener('click', () => {
   //Reset Ball Pos and speed
   ball.x = canvas.width / 2;
   ball.y = canvas.height / 2;
-  ball.speedX = 2;
-  ball.speedY = 2;
+  ball.speedX = 0;
+  ball.speedY = 0;
 
   gameLoop();
 });
