@@ -42,32 +42,12 @@ function startCountdown() {
     }, 1000);
 }
 
-if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-  permissionBtn.addEventListener('click', () => {
-    DeviceOrientationEvent.requestPermission()
-        .then(permissionState => {
-          if (permissionState === 'granted') {
-            permissionScreen.style.display = 'none';
-            window.addEventListener('deviceorientation', handleOrientation);
-            gameLoop();
-          } else {
-              alert('Permission to use gyroscope denied.');
-          }
-        })
-        .catch(console.error);
-  });
-} else {
-  permissionScreen.style.display = 'none';
-  window.addEventListener('deviceorientation', handleOrientation);
-  gameLoop();
-}
-
 function handleOrientation() {
   const tiltX = event.gamma;
 
   const tiltY =  event.beta;
 
-  const sensitivity = 1;
+  const sensitivity = 0.5;
 
   ball.speedX = tiltX * sensitivity;
   ball.speedY = tiltY * sensitivity;
@@ -77,8 +57,7 @@ function gameLoop() {
   if (isGameOver){
     return;
   }
-  startCountdown();
-  
+
   update();
 
   render();
@@ -89,6 +68,11 @@ function gameLoop() {
 gameOverSound.loop = false;
 
 function update() {
+  const friction = 0.98;
+
+  ball.speedX *= friction;
+  ball.speedY *= friction;
+
   ball.x += ball.speedX;
   ball.y += ball.speedY;
 
@@ -119,22 +103,44 @@ function render() {
   ctx.closePath();
 }
 
-restartBtn.addEventListener('click', () => {
+function startGame() {
   isGameOver = false;
   gameOver.classList.add('hidden');
 
-  // Stop sound on restart
   gameOverSound.pause();
   gameOverSound.currentTime = 0;
 
-  //Reset Ball Pos and speed
   ball.x = canvas.width / 2;
   ball.y = canvas.height / 2;
   ball.speedX = 0;
   ball.speedY = 0;
 
-  gameLoop();
+  startCountdown();
+}
+
+restartBtn.addEventListener('click', () => {
+  startGame();
 });
+
+if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+  permissionBtn.addEventListener('click', () => {
+    DeviceOrientationEvent.requestPermission()
+        .then(permissionState => {
+          if (permissionState === 'granted') {
+            permissionScreen.style.display = 'none';
+            window.addEventListener('deviceorientation', handleOrientation);
+            gameLoop();
+          } else {
+              alert('Permission to use gyroscope denied.');
+          }
+        })
+        .catch(console.error);
+  });
+} else {
+  permissionScreen.style.display = 'none';
+  window.addEventListener('deviceorientation', handleOrientation);
+  startGame();
+}
 
 gameLoop();
 
