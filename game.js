@@ -88,8 +88,8 @@ restartBtn.addEventListener('click', () => {
   //Reset Ball Pos and speed
   ball.x = canvas.width / 2;
   ball.y = canvas.height / 2;
-  ball.speedX = 0;
-  ball.speedY = 0;
+  ball.speedX = 2;
+  ball.speedY = 2;
 
   gameLoop();
 });
